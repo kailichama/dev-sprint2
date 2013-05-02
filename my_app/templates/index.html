@@ -1,22 +1,25 @@
 {% extends "base.html" %}
 {% block body %}
 	<h1> Welcome! </h1> <!-- welcome page -->
-	</head>
-	<body margin: 15px align="center"> 
-	<p align="center"> Enter Python Code to Execute: </p>
-		<form action="/" method="post">
-				<input type="text" name="expression" /> <!--textbox with the name "expression" --> 
-				<input type="submit" value="Execute" />
+	{% if 'username' in session %} <!-- username here; each user gets a session cookie, if webserver knows difference between people, then it will know each of them when therye all logged in -->
+	<p> Welcome back {{session['username']}}!</p> <!-- welcomes the username that's logged in -->
+		<form action="{{url_for('index')}}" method="post"> 
+			<input type="submit" name="logout" value="logout" /> <!-- logout of session  -->
 		</form>
-		{% with messages = get_flashed_messages() %} <!-- flashing is a way to send messages to users in same session Jinja2 template-->
-			{% if messages %}
-				Results:
-				<pre>
-					{% for message in messages %} <!--loops through all the messages and display the message -->
-{{message}}
-					{% endfor %} <!-- ends forloop -->
-				</pre>
-			{% endif %} <!-- ends forloop -->
-		{% endwith %}  <!-- ends forloop -->
-	</body>
-</html>	
+	{% else %} <!-- if youre not logged in, it will show a form for you to log in -->
+		<p>A login is required:</p>
+		<form action="{{url_for('index')}}" method="post">
+			<p>Username:<br />
+				<input type="text" name="username" /></p> <!--blank space to enter the username in textbox -->
+			<p>Password:<br />
+				<input type="password" name="passwd" /></p> <!--blank space to enter password -->
+			<p><input type="submit" value="submit" /></p> <!--submit the username and pw -->
+		</form>
+	{% endif %}
+	{% with messages = get_flashed_messages() %}
+		{% for message in messages %}
+			{{message}}
+		{% endfor %}
+	{% endwith %}
+{% endblock %}
+<!-- anything written after here will not appear in HTML output -->
