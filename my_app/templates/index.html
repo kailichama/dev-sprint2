@@ -2,7 +2,7 @@
 {% block body %}
 	<h1> Welcome! </h1> <!-- welcome page -->
 	{% if 'username' in session %} <!-- username here; each user gets a session cookie, if webserver knows difference between people, then it will know each of them when therye all logged in -->
-	<p> Welcome back {{session['username']}}!</p> <!-- welcomes the username that's logged in -->
+	<p> Chama land {{session['username']}}!</p> <!-- welcomes the username that's logged in -->
 		<form action="{{url_for('index')}}" method="post"> 
 			<input type="submit" name="logout" value="logout" /> <!-- logout of session  -->
 		</form>
