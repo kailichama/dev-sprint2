@@ -20,12 +20,15 @@ class Main(flask.views.MethodView): #new view called main, changed following vie
 		return flask.render_template('index.html')
 
 	def post(self):
+		if 'logout' in flask.request.form: #logs you out!
+			flask.session.pop('username', None)
+			return flask.redirect(flask.url_for('index'))
 		required = ['username', 'passwd']
 		for r in required:
 			if r not in flask.request.form:
 				flask.flash("ERROR: {0} is required.".format(r))
 				return flask.redirect(flask.url_for('index')) #return back to indexhtml
-		#flask.request.form[] #username and password will go ehre
+		#flask.request.form[] #username and password will go here
 		username = flask.request.form['username']
 		passwd = flask.request.form['passwd']
 		if username in users and users[username] == passwd: flask.session['username'] = username
@@ -47,7 +50,7 @@ app.add_url_rule('/',
 			methods=['GET', 'POST'])
 
 app.add_url_rule('/remote/', #changed the route to remote to match the above class view
-			view_func=Main.as_view('remote'),
+			view_func=Remote.as_view('remote'),
 			methods=['GET', 'POST']) #lets the app know youre using more views, methods is a list
 
 app.debug = True
