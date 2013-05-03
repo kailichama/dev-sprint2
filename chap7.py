@@ -19,7 +19,9 @@ while True:
 
 # Formula 1 = 2√2 ∑∞ (4k)!(1103 + 26390k) π 9801 k=0 (k!)43964k
 #solution for 7.5: Need help with forming thoughts to create this in the future o_o (understand the pieces, but not sure how i would create this on my own!!)
-import math
+
+#stolen solution!
+import math 
 
 def factorial(n):
     """Computes factorial of n."""
@@ -31,11 +33,6 @@ def factorial(n):
         return result
 
 def estimate_pi():
-    """Computes an estimate of pi.
-
-    Algorithm due to Srinivasa Ramanujan, from 
-    http://en.wikipedia.org/wiki/Pi
-    """
     total = 0
     k = 0
     factor = 2 * math.sqrt(2) / 9801
@@ -44,10 +41,14 @@ def estimate_pi():
         den = factorial(k)**4 * 396**(4*k)
         term = factor * num / den
         total += term
-        
         if abs(term) < 1e-15: break
         k += 1
-
+    print k
     return 1 / total
 
+print estimate_pi()
+
+
 # How many iterations does it take to converge?
+
+# 2 iterations

@@ -11,13 +11,15 @@
 #One way to find the GCD of two numbers is Euclid’s algorithm, which is based on the observation that if r is the remainder when a is divided by b, then gcd(a, b) = gcd(b, r). As a base case, we can use gcd(a, 0) = a.
 #Write a function called gcd that takes parameters a and b and returns their greatest common divisor. If you need help, see http: // en. wikipedia. org/ wiki/ Euclidean_ algorithm .
 
-def gcd(a, b):
-    if a % b == 0;
-    and b > a
-        return b
+def gcd(a, b): #recursion => working towards simplest solution
+    if b == 0:
+    	return a
+    return gcd(b, a % b)
 
 #stackoverflow solution -- can someone explain?
-def gcd(a, b):
+def gcd(a, b): #iterations
     while b:
         a, b = b, a%b
     return a
+
+
